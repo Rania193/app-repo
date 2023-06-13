@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: helloworld
+  name: helloworld
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - image: rania199/final_project:v${BUILD_NUMBER}
+        name: helloworld
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        resources: {}
