@@ -15,6 +15,9 @@ pipeline {
                 script{
 
                     if (params.ENV == "Build") {
+                        sh '''
+                            echo 'debugging'
+                        '''
                         withCredentials([usernamePassword(credentialsId: 'dockeriti', usernameVariable: 'USERNAME_ITI', passwordVariable: 'PASSWORD_ITI')]) {
                             sh '''
                                 docker login -u ${USERNAME_ITI} -p ${PASSWORD_ITI}
