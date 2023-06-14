@@ -30,6 +30,9 @@ pipeline {
                             '''
                      }
                     }
+                    else {
+                        echo "user chose ${params.ENV}"
+                    }
 
                 }
 
