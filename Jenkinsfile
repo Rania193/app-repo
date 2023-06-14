@@ -2,19 +2,19 @@ pipeline {
 
     agent { label "jenkins_slave"}
 
-    // parameters {
-    //     choice(name: 'Choose either to build or deploy', choices: ['Build', 'Deploy'])
-    // } 
+     parameters {
+         choice(name: 'Choose either to build or deploy', choices: ['build', 'deploy'])
+     } 
 
 
     
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
                 echo 'building...'
                 script{
 
-                    //if (params.ENV == "Build") {
+                    if (params.ENV == "build") {
                         sh '''
                             echo 'debugging'
                         '''
@@ -29,7 +29,7 @@ pipeline {
                                 echo ${BUILD_NUMBER} > ../build.txt
                             '''
                      }
-                    //}
+                    }
 
                 }
 
@@ -38,7 +38,7 @@ pipeline {
 
 
 
-        stage('Deploy') {
+        stage('deploy') {
 
             
             steps {
@@ -46,7 +46,7 @@ pipeline {
 
 
                 script {
-                    //if (params.ENV == "Deploy") {
+                    if (params.ENV == "deploy") {
                         withCredentials([file(credentialsId: 'jenkinsiti', variable: 'KITI')]) {
                             sh '''
                                 export BUILD_NUMBER=$(cat ../build.txt)
@@ -64,7 +64,7 @@ pipeline {
             }
 
             
-       // }
+        }
     }
 
 
