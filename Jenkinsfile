@@ -18,8 +18,11 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'dockeriti', usernameVariable: 'USERNAME_ITI', passwordVariable: 'PASSWORD_ITI')]) {
                             sh '''
                                 docker login -u ${USERNAME_ITI} -p ${PASSWORD_ITI}
+                                echo 'logged in to docker'
                                 docker build -t rania199/final_project:v${BUILD_NUMBER} .
+                                echo 'built image'
                                 docker push rania199/final_project:v${BUILD_NUMBER}
+                                echo 'pushed image'
                                 echo ${BUILD_NUMBER} > ../build.txt
                             '''
                      }
@@ -48,6 +51,7 @@ pipeline {
                                 cat deployment/deploy.yaml.tmp | envsubst > deployment/deploy.yaml
                                 rm -f deployment/deploy.yaml.tmp
                                 kubectl apply -f deployment --kubeconfig ${KITI} -n app
+                                echo 'done'
                              '''
                         }
                     }
