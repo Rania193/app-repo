@@ -12,11 +12,12 @@ pipeline {
         stage('build') {
             steps {
                 echo 'building...'
+
                 script{
 
                     if (params.ENV == "build") {
                         sh '''
-                            echo 'debugging'
+                            echo 'debugging..'
                         '''
                         withCredentials([usernamePassword(credentialsId: 'dockeriti', usernameVariable: 'USERNAME_ITI', passwordVariable: 'PASSWORD_ITI')]) {
                             sh '''
